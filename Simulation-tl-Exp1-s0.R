@@ -3,7 +3,7 @@ library(rTensor)
 library(MASS)
 library(CVXR)
 #library(plotly)
-
+#setwd("/Users/saili/Nutstore Files/Nutstore/Domain generalization-Multi-indices")
 
 source('~/dg-main-functions.R')
 
@@ -40,12 +40,6 @@ for(rr in 2:4){
     coef.Omega<-as.tensor(coef.Omega)
     grps<-expand.grid(1:p.vec[2],1:p.vec[3])
     grps.test<-grps[is.na(match(data.frame(t(grps)), data.frame(t(Ob)))),]
-    s=3
-    for(i in 1:nrow(grps.test)){
-      gam.i<-coef.tsr@data[,grps.test[i,1],grps.test[i,2]]
-      gam.i[1:s]=rnorm(s,0,0.5)+gam.i[1:s]
-      coef.tsr@data[,grps.test[i,1],grps.test[i,2]]<-gam.i
-    }
     #generate data
     for(it in 1:Niter){
       ####generate observed data####
@@ -77,7 +71,7 @@ for(rr in 2:4){
       V0.hat<-SVD.0(OLS.list=OLS.list.all, Ob)
       SVD.re<-SVD.t(OLS.list=OLS.list.all, Ob, Omega=Omega, A.list=A.list)
       V.list=SVD.re$Vt
-      #cat(ncol(V0.hat),ncol(V.list[[1]]),ncol(V.list[[1]]),'\n')
+
       #step 2
       B0.hat<-k_unfold(OLS.list.all$OLS.tsr,1)@data
       R0.hat<-V0.hat%*%solve(t(V0.hat)%*%B0.hat%*%t(B0.hat)%*%V0.hat)%*%t(V0.hat)%*%B0.hat%*%t(B0.hat)
@@ -125,13 +119,14 @@ for(rr in 2:4){
 
      }
         
-    write.table(TLE.out, file=paste('TL-TL-Exp1',rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
-    write.table(Meta.out, file=paste('TL-Meta-Exp1', rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
-    write.table(Meta.out2, file=paste('TL-Meta2-Exp1', rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
-    write.table(OLS.out, file=paste('TL-OLS-Exp1', rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
+    write.table(TLE.out, file=paste('TL-TL-Exp1-s0',rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
+    write.table(Meta.out, file=paste('TL-Meta-Exp1-s0', rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
+    write.table(Meta.out2, file=paste('TL-Meta2-Exp1-s0', rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
+    write.table(OLS.out, file=paste('TL-OLS-Exp1-s0', rr,'-',aa,'-',ww,'.txt',sep=""), col.names=F,row.names=F)
     
 
   }#rr
+
 
 
 
