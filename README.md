@@ -5,4 +5,6 @@ Multi-dimensional domain generalization with low-rank structures
 
 "Simulation-dg-Exp1.R" includes the code for generating Figures 2 and 3. 
 
-"Simulation-tl-Exp1.R" includes the code for generating Figures 4 and 5.
+"Simulation-tl-Exp1-s0.R" includes the code for generating Figure 4.
+
+"Simulation-tl-Exp1.R" includes the code for generating Figure 5.
